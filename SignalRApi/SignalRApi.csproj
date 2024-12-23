@@ -17,10 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\SignalR.BusinessLayer\SignalR.BusinessLayer.csproj" />
     <ProjectReference Include="..\SignalR.DtoLayer\SignalR.DtoLayer.csproj" />
   </ItemGroup>
