@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SignalR.BusinessLayer.Abstract;
 using SignalR.DtoLayer.BookingDto;
@@ -12,16 +13,19 @@ namespace SignalRApi.Controllers
 	public class CategoryController : ControllerBase
 	{
 		private readonly ICategoryService _categoryService;
+		private readonly IMapper _mapper;
 
-		public CategoryController(ICategoryService categoryService)
+		public CategoryController(ICategoryService categoryService, IMapper mapper)
 		{
 			_categoryService = categoryService;
+			_mapper = mapper;
 		}
 
 		[HttpGet]
 		public IActionResult CategoryList()
 		{
-			return Ok(_categoryService.TGetAll());
+			var value=_mapper.Map<List<ResultCategoryDto>>(_categoryService.TGetAll());
+			return Ok(value);
 		}
 
 		[HttpPost]
