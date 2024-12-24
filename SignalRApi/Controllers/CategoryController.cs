@@ -24,7 +24,7 @@ namespace SignalRApi.Controllers
 		[HttpGet]
 		public IActionResult CategoryList()
 		{
-			var value=_mapper.Map<List<ResultCategoryDto>>(_categoryService.TGetAll());
+			var value = _mapper.Map<List<ResultCategoryDto>>(_categoryService.TGetAll());
 			return Ok(value);
 		}
 
@@ -39,7 +39,7 @@ namespace SignalRApi.Controllers
 			_categoryService.TAdd(category);
 			return Ok("Ekleme Başarılı");
 		}
-		[HttpDelete]
+		[HttpDelete("{id}")]
 		public IActionResult DeleteCategory(int id)
 		{
 			var value = _categoryService.TGetById(id);
