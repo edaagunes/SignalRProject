@@ -57,7 +57,7 @@ namespace SignalRApi.Controllers
 			_contactService.TUpdate(contact);
 			return Ok("Güncelleme Başarılı");
 		}
-		[HttpGet("GetContact")]
+		[HttpGet("{id}")]
 		public IActionResult GetContact(int id)
 		{
 			return Ok(_contactService.TGetById(id));
