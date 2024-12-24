@@ -53,7 +53,7 @@ namespace SignalRApi.Controllers
 			_featureService.TUpdate(feature);
 			return Ok("Güncelleme Başarılı");
 		}
-		[HttpGet("GetFeature")]
+		[HttpGet("{id}")]
 		public IActionResult GetFeature(int id)
 		{
 			return Ok(_featureService.TGetById(id));

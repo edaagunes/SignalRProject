@@ -59,7 +59,7 @@ namespace SignalRApi.Controllers
 			_testimonialService.TUpdate(testimonial);
 			return Ok("Güncelleme Başarılı");
 		}
-		[HttpGet("GetTestimonial")]
+		[HttpGet("{id}")]
 		public IActionResult GetTestimonial(int id)
 		{
 			return Ok(_testimonialService.TGetById(id));

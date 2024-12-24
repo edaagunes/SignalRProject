@@ -54,7 +54,7 @@ namespace SignalRApi.Controllers
 			_socialMediaService.TUpdate(socialMedia);
 			return Ok("Güncelleme Başarılı");
 		}
-		[HttpGet("GetSocialMedia")]
+		[HttpGet("{id}")]
 		public IActionResult GetSocialMedia(int id)
 		{
 			return Ok(_socialMediaService.TGetById(id));

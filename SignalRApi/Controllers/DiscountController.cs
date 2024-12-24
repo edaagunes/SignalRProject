@@ -56,7 +56,7 @@ namespace SignalRApi.Controllers
 			_discountService.TUpdate(discount);
 			return Ok("Güncelleme Başarılı");
 		}
-		[HttpGet("GetDiscount")]
+		[HttpGet("{id}")]
 		public IActionResult GetDiscount(int id)
 		{
 			return Ok(_discountService.TGetById(id));

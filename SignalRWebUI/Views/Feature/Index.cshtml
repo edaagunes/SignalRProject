@@ -1,0 +1,51 @@
+﻿@model List<ResultFeatureDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="content">
+	<div class="container-fluid">
+		<h4 class="page-title">Öne Çıkan İşlemleri</h4>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<div class="card-title">Öne Çıkanlar Listesi</div>
+					</div>
+					<div class="card-body">
+
+						<table class="table mt-3">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Başlık</th>
+									<th scope="col">Açıklama</th>
+									<th scope="col">Düzenle</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in Model)
+								{
+									<tr>
+										<td>@item.FeatureId</td>
+										<td>@item.Title</td>
+										<td>@item.Description</td>
+										<td>
+											<a href="/Feature/DeleteFeature/@item.FeatureId" class="btn btn-danger">Sil</a>
+											<a href="/Feature/UpdateFeature/@item.FeatureId" class="btn btn-warning">Güncelle</a>
+										</td>
+									</tr>
+								}
+
+							</tbody>
+						</table>
+						<a href="/Feature/CreateFeature" class="btn btn-primary">Yeni Öne Çıkan</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
