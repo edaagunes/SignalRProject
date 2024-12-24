@@ -54,7 +54,7 @@ namespace SignalRApi.Controllers
 			_aboutService.TUpdate(about);
 			return Ok("Güncelleme Başarılı");
 		}
-		[HttpGet("GetAbout")]
+		[HttpGet("{id}")]
 		public IActionResult GetAbout(int id)
 		{
 			return Ok(_aboutService.TGetById(id));
