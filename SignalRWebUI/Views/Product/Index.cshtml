@@ -1,0 +1,57 @@
+﻿@model List<ResultProductDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="content">
+	<div class="container-fluid">
+		<h4 class="page-title">Ürün İşlemleri</h4>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<div class="card-title">Ürün Listesi</div>
+					</div>
+					<div class="card-body">
+
+						<table class="table mt-3">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Ürün Adı</th>
+									<th scope="col">Ürün Fiyatı</th>
+									<th scope="col">Kategori</th>
+									<th scope="col">Durum</th>
+									<th scope="col">Düzenle</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in Model)
+								{
+									<tr>
+										<td>@item.ProductId</td>
+										<td>@item.ProductName</td>
+										<td>@item.Price</td>
+										<td>@item.CategoryName</td>
+										<td>@item.ProductStatus</td>
+										<td>
+											<a href="/Product/DeleteProduct/@item.ProductId" class="btn btn-danger">Sil</a>
+											<a href="/Product/UpdateProduct/@item.ProductId" class="btn btn-warning">Güncelle</a>
+										</td>
+									</tr>
+								}
+
+							</tbody>
+						</table>
+						<a href="/Product/CreateProduct" class="btn btn-primary">Yeni Ürün</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+

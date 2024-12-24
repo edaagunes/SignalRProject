@@ -29,7 +29,7 @@ namespace SignalRApi.Controllers
 		[HttpGet("ProductListWithCategory")]
 		public IActionResult ProductListWithCategory()
 		{
-			var context= new SignalRContext();
+			var context = new SignalRContext();
 			var values = context.Products.Include(x => x.Category);
 			var items = _mapper.Map<List<ResultProductWithCategory>>(values);
 			return Ok(items.ToList());
@@ -45,11 +45,12 @@ namespace SignalRApi.Controllers
 				ProductName = createProductDto.ProductName,
 				ProductStatus = createProductDto.ProductStatus,
 				Description = createProductDto.Description,
+				CategoryId = createProductDto.CategoryId
 			};
 			_productService.TAdd(product);
 			return Ok("Ekleme Başarılı");
 		}
-		[HttpDelete]
+		[HttpDelete("{id}")]
 		public IActionResult DeleteProduct(int id)
 		{
 			var value = _productService.TGetById(id);
@@ -67,11 +68,12 @@ namespace SignalRApi.Controllers
 				ProductName = updateProductDto.ProductName,
 				ProductStatus = updateProductDto.ProductStatus,
 				Description = updateProductDto.Description,
+				CategoryId = updateProductDto.CategoryId
 			};
 			_productService.TUpdate(product);
 			return Ok("Güncelleme Başarılı");
 		}
-		[HttpGet("GetProduct")]
+		[HttpGet("{id}")]
 		public IActionResult GetProduct(int id)
 		{
 			return Ok(_productService.TGetById(id));

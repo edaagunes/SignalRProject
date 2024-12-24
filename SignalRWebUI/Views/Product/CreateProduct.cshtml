@@ -1,0 +1,49 @@
+﻿@model CreateProductDto
+@{
+    ViewData["Title"] = "CreateProduct";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="content">
+	<div class="container-fluid">
+		<h4 class="page-title">Ürün İşlemleri</h4>
+		<div class="row">
+			<div class="col-md-12">
+				<form method="post">
+					<div class="card">
+						<div class="card-header">
+							<div class="card-title">Yeni Ürün</div>
+						</div>
+						<div class="card-body">
+							<div class="form-group">
+								<label for="productname">Ürün Adı</label>
+								<input type="text" class="form-control" asp-for="ProductName" id="productname">
+							</div>
+							<div class="form-group">
+								<label for="productprice">Ürün Fiyatı</label>
+								<input type="text" class="form-control" asp-for="Price" id="price">
+							</div>
+							<div class="form-group">
+								<label for="imageurl">Ürün Görseli</label>
+								<input type="text" class="form-control" asp-for="ImageUrl" id="imageurl">
+							</div>							
+							<div class="form-group">
+								<label for="categoryname">Kategori Adı</label>
+								@Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.v, new {@class="form-control"})
+							</div>
+							<div class="form-group">
+								<label for="description">Ürün Açıklaması </label>
+								<input type="text" class="form-control" asp-for="Description" id="description">
+							</div>
+						</div>
+						<div class="card-action">
+							<button type="submit" class="btn btn-success">Ürünü Ekle</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
