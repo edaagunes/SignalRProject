@@ -9,41 +9,41 @@ using System.Threading.Tasks;
 
 namespace SignalR.BusinessLayer.Concrete
 {
-	public class MoneyCaseManager : IMoneyCaseService
+	public class MenuTableManager : IMenuTableService
 	{
-		private readonly IMoneyCaseDal _moneyCaseDal;
+		private readonly IMenuTableDal _menuTableDal;
 
-		public MoneyCaseManager(IMoneyCaseDal moneyCaseDal)
+		public MenuTableManager(IMenuTableDal menuTableDal)
 		{
-			_moneyCaseDal = moneyCaseDal;
+			_menuTableDal = menuTableDal;
 		}
 
-		public void TAdd(MoneyCase entity)
-		{
-			throw new NotImplementedException();
-		}
-
-		public void TDelete(MoneyCase entity)
+		public void TAdd(MenuTable entity)
 		{
 			throw new NotImplementedException();
 		}
 
-		public List<MoneyCase> TGetAll()
+		public void TDelete(MenuTable entity)
 		{
 			throw new NotImplementedException();
 		}
 
-		public MoneyCase TGetById(int id)
+		public List<MenuTable> TGetAll()
 		{
 			throw new NotImplementedException();
 		}
 
-		public decimal TTotalMoney()
+		public MenuTable TGetById(int id)
 		{
-			return _moneyCaseDal.TotalMoney();
+			throw new NotImplementedException();
 		}
 
-		public void TUpdate(MoneyCase entity)
+		public int TMenuTableCount()
+		{
+			return _menuTableDal.MenuTableCount();
+		}
+
+		public void TUpdate(MenuTable entity)
 		{
 			throw new NotImplementedException();
 		}
