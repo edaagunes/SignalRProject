@@ -6,7 +6,6 @@ namespace SignalRApi.Hubs
 {
 	public class SignalRHub : Hub
 	{
-		// Tetikleyici ile
 		private readonly ICategoryService _categoryService;
 		private readonly IProductService _productService;
 		private readonly IOrderService _orderService;
@@ -71,6 +70,18 @@ namespace SignalRApi.Hubs
 
 			var value16 = _menuTableService.TMenuTableCount();
 			await Clients.All.SendAsync("ReceiveMenuTableCount", value16);
+		}
+	
+		public async Task SendProgress()
+		{
+			var value = _moneyCaseService.TTotalMoney();
+			await Clients.All.SendAsync("ReceiveTotalMoney", value.ToString("0.00"));
+
+			var value2 = _orderService.TActiveOrderCount();
+			await Clients.All.SendAsync("ReceiveActiveOrderCount", value2);
+
+			var value3=_menuTableService.TMenuTableCount();
+			await Clients.All.SendAsync("ReceiveMenuTableCount", value3);
 		}
 	}
 }
