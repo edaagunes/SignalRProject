@@ -160,13 +160,14 @@
 		var valueName=name;
 		var id =value;
 		$.ajax({
-			type:'post',
+			type:'POST',
+			url: "/Menu/AddBasket/" +id,
 			data:{item: id},
 			contentType:'json',
 			success: function(){
 				Swal.fire({
 					title: valueName,
-					text: "Seçtiğiniz ürün sepete eklendi!",
+					text: "Seçtiğiniz Ürün Sepete Eklendi!",
 					icon:"success"
 				});
 			}
