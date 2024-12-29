@@ -1,0 +1,75 @@
+﻿@model List<ResultBasketDto>
+@{
+	Layout = null;
+	int count = 0;
+}
+
+
+<!DOCTYPE html>
+<html>
+
+@await Component.InvokeAsync("_UILayoutHeadComponentPartial")
+
+
+<body class="sub_page">
+
+	@await Component.InvokeAsync("_MenuNavbarComponentPartial")
+
+	<br /><br />
+	<div class="container-fluid">
+		<div class="row px-xl-5">
+			<div class="col-12">
+				<nav class="breadcrumb bg-dark mb-30">
+					<a class="breadcrumb-item text-white" href="/Default/Index">Anasayfa</a>
+					<a class="breadcrumb-item text-white" href="/Menü/Index">Menü</a>
+					<span class="breadcrumb-item active">Sepetiniz</span>
+				</nav>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+		<div class="row px-xl-5">
+			<div class="col-lg-8 table-responsive mb-5">
+				<table class="table table-light table-borderless table-hover text-center mb-0">
+					<thead class="thead-dark">
+						<tr>
+							<th>#</th>
+							<th>Ürün Adı</th>
+							<th>Adet</th>
+							<th>Fiyat</th>
+							<th>Toplam</th>
+							<th>Sil</th>
+						</tr>
+					</thead>
+					@foreach (var item in Model)
+					{
+						count++;
+						<tbody class="align-middle">
+							<tr>
+								<td class="align-middle">@count</td>
+								<td class="align-middle">@item.ProductName</td>
+								<td class="align-middle">@item.Count</td>
+								<td class="align-middle">@item.Price</td>
+								<td class="align-middle">@item.TotalPrice</td>
+								<td class="align-middle btn-delete"><button data-basketid="@item.BasketId" id="btndeletebasketid" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
+							</tr>
+						</tbody>
+					}
+					
+				</table> 
+			</div>
+		</div>
+	</div>
+
+	
+
+	@await Component.InvokeAsync("_UILayoutFooterComponentPartial")
+
+	@await Component.InvokeAsync("_UILayoutScriptComponentPartial")
+
+</body>
+
+</html>
+
+
