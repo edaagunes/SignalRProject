@@ -1,4 +1,54 @@
-﻿<div class="main-header">
+﻿
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+
+<div class="main-header">
+
+	<script type="text/javascript">
+
+		$(document).ready(() => {
+
+			var connection =new signalR.HubConnectionBuilder().withUrl("https://localhost:7191/SignalRHub").build();
+			$("#connstatus").text(connection.state);
+
+			connection.start().then(() => {
+				$("#connstatus").text(connection.state);
+				setInterval(() => {
+					connection.invoke("SendNotification");
+				}, 2000);
+
+				}).catch((err)=>{console.log(err)});
+
+				connection.on("ReceiveNotificationCountByFalse", (value) => {
+					$("#notificationCount").text(value);
+				});
+
+				connection.on("ReceiveNotificationListByFalse", (value) => {
+					$("#notifList").empty();
+					for(var i=0;i<value.length;i++){
+						$("#notifList").append(`<a href="#">
+							<div class="${value[i].type}"><i class="${value[i].icon}"></i></div>
+							<div class="notif-content">
+									<span class="block">
+									${value[i].description}
+									 </span>
+
+									 <span class="time">${new Date(value[i].date).toLocaleDateString('tr-TR', { day: '2-digit', month: '2-digit', year: '2-digit' })}
+									 ${new Date(value[i].date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+
+									 </div>
+							</a>`);
+					};
+				});
+
+				
+			});
+	</script>
+
 	<div class="logo-header">
 		<a href="index.html" class="logo">
 			SignalR Dashboard
@@ -36,52 +86,19 @@
 			<li class="nav-item dropdown hidden-caret">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<i class="la la-bell"></i>
-					<span class="notification">3</span>
+						<span class="notification" id="notificationCount"></span>
 				</a>
 				<ul class="dropdown-menu notif-box" aria-labelledby="navbarDropdown">
 					<li>
-						<div class="dropdown-title">4 yeni bildirim var</div>
+						<div class="dropdown-title">Yeni bildirimleriniz var</div>
 					</li>
 					<li>
 						<div class="notif-center">
-							<a href="#">
-								<div class="notif-icon notif-primary"> <i class="la la-user-plus"></i> </div>
-								<div class="notif-content">
-									<span class="block">
-										New user registered
-									</span>
-									<span class="time">5 minutes ago</span>
+
+								<div id="notifList">
+
 								</div>
-							</a>
-							<a href="#">
-								<div class="notif-icon notif-success"> <i class="la la-comment"></i> </div>
-								<div class="notif-content">
-									<span class="block">
-										Rahmad commented on Admin
-									</span>
-									<span class="time">12 minutes ago</span>
-								</div>
-							</a>
-							<a href="#">
-								<div class="notif-img">
-									<img src="~/Ready-Bootstrap-Dashboard-master/assets/img/profile2.jpg" alt="Img Profile">
-								</div>
-								<div class="notif-content">
-									<span class="block">
-										Reza send messages to you
-									</span>
-									<span class="time">12 minutes ago</span>
-								</div>
-							</a>
-							<a href="#">
-								<div class="notif-icon notif-danger"> <i class="la la-heart"></i> </div>
-								<div class="notif-content">
-									<span class="block">
-										Farrah liked Admin
-									</span>
-									<span class="time">17 minutes ago</span>
-								</div>
-							</a>
+
 						</div>
 					</li>
 					<li>
