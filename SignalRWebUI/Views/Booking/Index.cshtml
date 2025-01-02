@@ -5,8 +5,65 @@
 	int count = 0;
 }
 
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
 <div class="content">
 	<div class="container-fluid">
+
+		<script type="text/javascript">
+
+			$(document).ready(() => {
+
+				var connection =new signalR.HubConnectionBuilder().withUrl("https://localhost:7191/SignalRHub").build();
+				$("#connstatus").text(connection.state);
+
+				connection.start().then(() => {
+					$("#connstatus").text(connection.state);
+					setInterval(() => {
+						connection.invoke("GetBookingList");
+					}, 2000);
+
+					}).catch((err)=>{console.log(err)});
+
+					connection.on("ReceiveBookingList", (value) => {
+						console.log(value);
+						let tablehtml=`<table class=table mt-3>
+						<thead>
+						<tr>
+						<th scope="col">#</th>
+						<th scope="col">Ad Soyad</th>
+						<th scope="col">Telefon</th>
+						<th scope="col">Kişi Sayısı</th>
+						<th scope="col">Durum</th>
+						<th scope="col">Düzenle</th>
+						</tr>
+						</thead>
+						<tbody>`
+
+						$.each(value,(index,item) => {
+							tablehtml+=`<tr>
+							<td>${item.bookingId}</td>
+							<td>${item.name}</td>
+							<td>${item.phone}</td>
+							<td>${item.personCount}</td>
+							<td>${"Rezervasyon Alındı"}</td>
+							<td>
+							<a href="/Booking/DeleteBooking/${item.bookingId}" class="btn btn-danger">Sil</a>
+							<a href="/Booking/UpdateBooking/${item.bookingId}" class="btn btn-warning">Güncelle</a>
+							</td>
+							</tr>`
+						});
+						tablehtml+="</tbody></table>";
+						$("#bookingList").html(tablehtml);
+					});
+					
+				});
+		</script>
+
 		<h4 class="page-title">Rezervasyon İşlemleri</h4>
 		<div class="row">
 			<div class="col-md-12">
@@ -15,38 +72,9 @@
 						<div class="card-title">Rezervasyon Listesi</div>
 					</div>
 					<div class="card-body">
-
-						<table class="table mt-3">
-							<thead>
-								<tr>
-									<th scope="col">#</th>
-									<th scope="col">Ad Soyad</th>
-									<th scope="col">Telefon</th>
-									<th scope="col">Kişi Sayısı</th>
-									<th scope="col">Durum</th>
-									<th scope="col">Düzenle</th>
-								</tr>
-							</thead>
-							<tbody>
-								@foreach (var item in Model)
-								{
-									count++;
-									<tr>
-										<td>@count</td>
-										<td>@item.Name</td>
-										<td>@item.Phone</td>
-										<td>@item.PersonCount</td>
-										<td>Rezervasyon Alındı</td>
-										<td>
-											<a href="/Booking/DeleteBooking/@item.BookingId" class="btn btn-danger">Sil</a>
-											<a href="/Booking/UpdateBooking/@item.BookingId" class="btn btn-warning">Güncelle</a>
-										</td>
-									</tr>
-								}
-
-							</tbody>
-						</table>
+						<div id="bookingList"></div>
 						<a href="/Booking/CreateBooking" class="btn btn-primary">Yeni Hakkımızda</a>
+						
 					</div>
 				</div>
 			</div>
