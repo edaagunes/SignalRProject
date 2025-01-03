@@ -2,6 +2,43 @@
 	Layout = null;
 }
 
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+<style>
+	.active-users {
+		position: fixed;
+		top: 60px; /* Daha aşağıya konumlandırmak için */
+		right: 40px; /* Sağdan biraz boşluk */
+		background-color: goldenrod; /* Turkuaz arka plan */
+		color: #fff; /* Beyaz yazı */
+		border-radius: 50%; /* Yuvarlak */
+		width: 100px; /* Daha geniş yuvarlak */
+		height: 100px; /* Yüksekliği de artır */
+		display: flex;
+		flex-direction: column; /* İçerikleri dikey hizala */
+		align-items: center; /* Ortaya hizala */
+		justify-content: center; /* Ortaya hizala */
+		font-size: 1rem; /* Yazı boyutunu ayarla */
+		font-weight: bold;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		text-align: center; /* Yazıyı ortala */
+	}
+
+		.active-users div#clientcountvalue {
+			font-size: 1.5rem; /* Sayıyı vurgula */
+		}
+
+		.active-users p {
+			margin: 0;
+			font-size: 0.8rem;
+		}
+</style>
+
+
+
 
 <!DOCTYPE html>
 <html>
@@ -15,6 +52,32 @@
 
 	<section class="food_section layout_padding">
 		<div class="container">
+
+			<script type="text/javascript">
+
+				$(document).ready(() => {
+
+					var connection =new signalR.HubConnectionBuilder().withUrl("https://localhost:7191/SignalRHub").build();
+					$("#connstatus").text(connection.state);
+
+					connection.start().then(() => {
+						$("#connstatus").text(connection.state);
+						}).catch((err)=>{console.log(err)});
+
+						connection.on("ReceiveClientCount", (clientcount) => {
+							$("#clientcountvalue").text(clientcount);
+						});
+					});
+			</script>
+
+			<div class="active-users">
+				<div>
+					<div id="clientcountvalue">0</div>
+					<p>Aktif Kullanıcı</p>
+				</div>
+			</div>
+
+
 			<div class="container mt-5">
 				<div class="row">
 					<div class="col-12">
