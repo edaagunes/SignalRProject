@@ -102,5 +102,11 @@ namespace SignalRApi.Hubs
 			var notificationListByFalse = _notificationService.TGetAllNotificationsByFalse();
 			await Clients.All.SendAsync("ReceiveNotificationListByFalse", notificationListByFalse);
 		}
+	
+		public async Task GetMenuTableStatus()
+		{
+			var value = _menuTableService.TGetAll();
+			await Clients.All.SendAsync("ReceiveMenuTableStatus", value);
+		}
 	}
 }
