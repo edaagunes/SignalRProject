@@ -1,0 +1,59 @@
+﻿@model RegisterDto
+@{
+    Layout = null;
+}
+
+<style>
+	.page-content {
+		background: linear-gradient(45deg, #8fbce7, #bda9ff, #e8d6ff) !important;
+	}
+
+	.form-v6-content .form-detail .register {
+		background: #ff2146 !important;
+	}
+</style>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Form-v6 by Colorlib</title>
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- Font-->
+	<link rel="stylesheet" type="text/css" href="~/colorlib-regform-32/css/nunito-font.css">
+	<!-- Main Style Css -->
+	<link rel="stylesheet" href="~/colorlib-regform-32/css/style.css" />
+</head>
+<body class="form-v6">
+	<div class="page-content">
+		<div class="form-v6-content">
+			<div class="form-left">
+				<img src="~/colorlib-regform-32/images/12804.jpg" style="width:484px; height:670px;" alt="form">
+			</div>
+			<form class="form-detail" method="post">
+				<h2>Yeni Kullanıcı Kaydı</h2>
+				<div class="form-row">
+					<input type="text"  id="full-name" asp-for="Name" class="input-text" placeholder="Adınız" required>
+				</div>
+				<div class="form-row">
+					<input type="text" id="full-name" asp-for="Surname" class="input-text" placeholder="Soyadınız" required>
+				</div>
+				<div class="form-row">
+					<input type="text"  id="your-email" asp-for="Mail" class="input-text" placeholder="Email Adresiniz" required pattern="[^@@]+@@[^@@]+.[a-zA-Z]{2,6}">
+				</div>
+				<div class="form-row">
+					<input type="text"  id="full-name" asp-for="Username" class="input-text" placeholder="Kullanıcı Adınız">
+				</div>
+				<div class="form-row">
+					<input type="password"  id="password" asp-for="Password" class="input-text" placeholder="Şifreniz" required>
+				</div>
+				<div class="form-row-last">
+					<input type="submit" name="register" class="register" value="Kayıt Ol">
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
