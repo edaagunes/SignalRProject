@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SignalRWebUI.Dtos.FeatureDtos
+namespace SignalR.DtoLayer.SliderDto
 {
-	public class UpdateFeatureDto
+	public class CreateSliderDto
 	{
-		public int FeatureId { get; set; }
 		public string Title { get; set; }
 		public string Description { get; set; }
 	}

@@ -29,7 +29,7 @@
 									<tr>
 										<td>@item.TestimonialId</td>
 										<td>@item.Name</td>
-										<td>@item.Status</td>
+										<td>@(item.Status==true ? "Aktif":"Pasif")</td>
 										<td>
 											<a href="/Testimonial/DeleteTestimonial/@item.TestimonialId" class="btn btn-danger">Sil</a>
 											<a href="/Testimonial/UpdateTestimonial/@item.TestimonialId" class="btn btn-warning">Güncelle</a>

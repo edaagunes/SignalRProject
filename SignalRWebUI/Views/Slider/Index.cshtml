@@ -1,4 +1,4 @@
-﻿@model List<ResultFeatureDto>
+﻿@model List<ResultSliderDto>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/AdminLayout/Index.cshtml";
@@ -28,19 +28,19 @@
 								@foreach (var item in Model)
 								{
 									<tr>
-										<td>@item.FeatureId</td>
+										<td>@item.SliderId</td>
 										<td>@item.Title</td>
-										<td>@item.Description</td>
+										<td>@item.Description.Substring(0,50)...</td>
 										<td>
-											<a href="/Feature/DeleteFeature/@item.FeatureId" class="btn btn-danger">Sil</a>
-											<a href="/Feature/UpdateFeature/@item.FeatureId" class="btn btn-warning">Güncelle</a>
+											<a href="/Slider/DeleteSlider/@item.SliderId" class="btn btn-danger">Sil</a>
+											<a href="/Slider/UpdateSlider/@item.SliderId" class="btn btn-warning">Güncelle</a>
 										</td>
 									</tr>
 								}
 
 							</tbody>
 						</table>
-						<a href="/Feature/CreateFeature" class="btn btn-primary">Yeni Öne Çıkan</a>
+						<a href="/Slider/CreateSlider" class="btn btn-primary">Yeni Öne Çıkan</a>
 					</div>
 				</div>
 			</div>

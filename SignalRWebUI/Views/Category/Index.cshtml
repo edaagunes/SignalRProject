@@ -1,7 +1,8 @@
 ﻿@model List<ResultCategoryDto>
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/AdminLayout/Index.cshtml";
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/AdminLayout/Index.cshtml";
+	int count = 0;
 }
 
 <div class="content">
@@ -14,7 +15,7 @@
 						<div class="card-title">Kategori Listesi</div>
 					</div>
 					<div class="card-body">
-						
+
 						<table class="table mt-3">
 							<thead>
 								<tr>
@@ -27,10 +28,11 @@
 							<tbody>
 								@foreach (var item in Model)
 								{
+									count++;
 									<tr>
-										<td>@item.CategoryId</td>
+										<th>@count</th>
 										<td>@item.CategoryName</td>
-										<td>@item.CategoryStatus</td>
+										<td>@(item.CategoryStatus==true ? "Aktif" : "Pasif")</td>
 										<td>
 											<a href="/Category/DeleteCategory/@item.CategoryId" class="btn btn-danger">Sil</a>
 											<a href="/Category/UpdateCategory/@item.CategoryId" class="btn btn-warning">Güncelle</a>											

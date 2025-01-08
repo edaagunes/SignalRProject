@@ -32,9 +32,12 @@
 								<label for="mail">Kişi Sayısı</label>
 								<input type="number" class="form-control" asp-for="PersonCount" id="number"></>
 							</div>
+							
+								<input type="hidden" class="form-control" asp-for="Description" id="text"></>
+							
 							<div class="form-group">
 								<label for="date">Rezervasyon Tarihi</label>
-								<input type="datetime" class="form-control" asp-for="Date" id="date"></>
+								<input type="date" class="form-control" asp-for="Date" id="date"></>
 							</div>
 						</div>
 						<div class="card-action">

@@ -46,14 +46,16 @@
 
 						$.each(value,(index,item) => {
 							tablehtml+=`<tr>
-							<td>${item.bookingId}</td>
+							<th>${index+1}</th>
 							<td>${item.name}</td>
 							<td>${item.phone}</td>
 							<td>${item.personCount}</td>
-							<td>${"Rezervasyon Alındı"}</td>
+							<td>${item.description}</td>
 							<td>
 							<a href="/Booking/DeleteBooking/${item.bookingId}" class="btn btn-danger">Sil</a>
 							<a href="/Booking/UpdateBooking/${item.bookingId}" class="btn btn-warning">Güncelle</a>
+							<a href="/Booking/BookingStatusApproved/${item.bookingId}" class="btn btn-success">Onayla</a>
+							<a href="/Booking/BookingStatusCanceled/${item.bookingId}" class="btn btn-dark">İptal Et</a>
 							</td>
 							</tr>`
 						});
@@ -73,7 +75,7 @@
 					</div>
 					<div class="card-body">
 						<div id="bookingList"></div>
-						<a href="/Booking/CreateBooking" class="btn btn-primary">Yeni Hakkımızda</a>
+						<a href="/Booking/CreateBooking" class="btn btn-primary">Yeni Rezervasyon</a>
 						
 					</div>
 				</div>

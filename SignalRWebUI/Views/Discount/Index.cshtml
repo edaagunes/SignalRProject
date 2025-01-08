@@ -1,7 +1,7 @@
 ﻿@model List<ResultDiscountDto>
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/AdminLayout/Index.cshtml";
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/AdminLayout/Index.cshtml";
 }
 
 <div class="content">
@@ -32,9 +32,22 @@
 										<td>@item.DiscountId</td>
 										<td>@item.Title</td>
 										<td>@item.Amount</td>
-										<td>durum</td>
 										<td>
-											<a href="/Discount/DeleteDiscount/@item.DiscountId" class="btn btn-danger">Durum</a>
+											<span class="badge @(item.Status ? "badge-success" : "badge-danger")">
+												@(item.Status ? "Aktif" : "Pasif")
+											</span>
+										</td>
+
+										<td>
+											@if (item.Status == true)
+											{
+												<a href="/Discount/ChangeStatusToFalse/@item.DiscountId" class="btn btn-dark">Pasif Yap</a>
+											}
+											else
+											{
+												<a href="/Discount/ChangeStatusToTrue/@item.DiscountId" class="btn btn-success">Aktif Yap</a>
+											}
+
 											<a href="/Discount/DeleteDiscount/@item.DiscountId" class="btn btn-danger">Sil</a>
 											<a href="/Discount/UpdateDiscount/@item.DiscountId" class="btn btn-warning">Güncelle</a>
 										</td>

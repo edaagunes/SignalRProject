@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using SignalR.DtoLayer.FeatureDto;
 using SignalR.DtoLayer.SocialMediaDto;
 using SignalR.EntityLayer.Entities;
 

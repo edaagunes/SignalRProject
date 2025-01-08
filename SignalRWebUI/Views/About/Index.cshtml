@@ -18,7 +18,6 @@
 						<table class="table mt-3">
 							<thead>
 								<tr>
-									<th scope="col">#</th>
 									<th scope="col">Başlık</th>
 									<th scope="col">Açıklama</th>
 									<th scope="col">Düzenle</th>
@@ -28,9 +27,8 @@
 								@foreach (var item in Model)
 								{
 									<tr>
-										<td>@item.AboutId</td>
 										<td>@item.Title</td>
-										<td>@item.Description</td>
+										<td>@item.Description.Substring(0,50)...</td>
 										<td>
 											<a href="/About/DeleteAbout/@item.AboutId" class="btn btn-danger">Sil</a>
 											<a href="/About/UpdateAbout/@item.AboutId" class="btn btn-warning">Güncelle</a>
@@ -40,7 +38,7 @@
 
 							</tbody>
 						</table>
-						<a href="/About/CreateAbout" class="btn btn-primary">Yeni Hakkımızda</a>
+						@* <a href="/About/CreateAbout" class="btn btn-primary">Yeni Hakkımızda</a> *@
 					</div>
 				</div>
 			</div>
