@@ -1,0 +1,69 @@
+﻿@model CreateMailDto
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<form method="post">
+					<div class="card">
+						<div class="card-header">
+							<div class="card-title">Mail Gönder</div>
+						</div>
+						<div class="card-body">
+							<div class="form-group">
+								<label for="ReceiverMail">Alıcı Mail Adresi</label>
+								<input type="text" class="form-control" asp-for="ReceiverMail" id="ReceiverMail">
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="form-group">
+								<label for="Subject">Konu</label>
+								<input type="text" class="form-control" asp-for="Subject" id="Subject">
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="form-group">
+								<label for="Body">Mesajınız</label>
+								<div id="editor" style="height: 300px;"></div>
+								<input type="hidden" id="Body" name="Body" asp-for="Body">
+							</div>
+						</div>
+						<div class="card-action">
+							<button type="submit" class="btn btn-primary">Gönder</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+<script>
+	var quill = new Quill('#editor', {
+		theme: 'snow',
+		modules: {
+			toolbar: [
+				[{ header: [1, 2, false] }],
+				['bold', 'italic', 'underline', 'strike'],
+				['blockquote', 'code-block'],
+				[{ color: [] }],
+				[{ list: 'ordered' }, { list: 'bullet' }],
+				['link', 'image', 'video'],
+				['clean']
+			],
+		},
+	});
+
+	quill.on('text-change', function () {
+		document.getElementById('Body').value = quill.root.innerHTML;
+	});
+</script>
+
+
