@@ -29,4 +29,10 @@
     <ProjectReference Include="..\SignalR.EntityLayer\SignalR.EntityLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="QRCoder">
+      <HintPath>..\..\..\..\OneDrive\Masaüstü\QRCoder.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
