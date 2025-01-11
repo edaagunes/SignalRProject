@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using SignalR.BusinessLayer.Abstract;
 using SignalR.DtoLayer.ContactDto;
 using SignalR.EntityLayer.Entities;
@@ -11,32 +13,26 @@ namespace SignalRApi.Controllers
 	public class ContactController : ControllerBase
 	{
 		private readonly IContactService _contactService;
+		private readonly IMapper _mapper;
 
-		public ContactController(IContactService contactService)
+		public ContactController(IContactService contactService, IMapper mapper)
 		{
 			_contactService = contactService;
+			_mapper = mapper;
 		}
 
 		[HttpGet]
 		public IActionResult ContactList()
 		{
-			return Ok(_contactService.TGetAll());
+			var value = _mapper.Map<List<ResultContactDto>>(_contactService.TGetAll());
+			return Ok(value);
 		}
 
 		[HttpPost]
 		public IActionResult CreateContact(CreateContactDto createContactDto)
 		{
-			Contact contact = new Contact()
-			{
-				Email = createContactDto.Email,
-				Phone = createContactDto.Phone,
-				FooterDescription = createContactDto.FooterDescription,
-				Location = createContactDto.Location,
-				FooterTitle = createContactDto.FooterTitle,
-				OpenDays = createContactDto.OpenDays,
-				OpenHours = createContactDto.OpenHours,
-			};
-			_contactService.TAdd(contact);
+			var value=_mapper.Map<Contact>(createContactDto);
+			_contactService.TAdd(value);
 			return Ok("Ekleme Başarılı");
 		}
 		[HttpDelete]
@@ -49,24 +45,16 @@ namespace SignalRApi.Controllers
 		[HttpPut]
 		public IActionResult UpdateContact(UpdateContactDto updateContactDto)
 		{
-			Contact contact = new Contact()
-			{
-				ContactId = updateContactDto.ContactId,
-				Email= updateContactDto.Email,
-				Phone = updateContactDto.Phone,
-				FooterDescription = updateContactDto.FooterDescription,
-				Location=updateContactDto.Location,
-				FooterTitle = updateContactDto.FooterTitle,
-				OpenDays = updateContactDto.OpenDays,
-				OpenHours = updateContactDto.OpenHours,
-			};
-			_contactService.TUpdate(contact);
+			var value = _mapper.Map<Contact>(updateContactDto);
+			_contactService.TUpdate(value);
 			return Ok("Güncelleme Başarılı");
 		}
 		[HttpGet("{id}")]
 		public IActionResult GetContact(int id)
 		{
-			return Ok(_contactService.TGetById(id));
+			var value = _contactService.TGetById(id);
+			return Ok(_mapper.Map<GetContactDto>(value));
+
 		}
 	}
 }

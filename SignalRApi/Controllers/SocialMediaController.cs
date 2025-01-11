@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SignalR.BusinessLayer.Abstract;
 using SignalR.DtoLayer.SocialMediaDto;
@@ -11,27 +12,25 @@ namespace SignalRApi.Controllers
 	public class SocialMediaController : ControllerBase
 	{
 		private readonly ISocialMediaService _socialMediaService;
+		private readonly IMapper _mapper;
 
-		public SocialMediaController(ISocialMediaService socialMediaService)
+		public SocialMediaController(ISocialMediaService socialMediaService, IMapper mapper)
 		{
 			_socialMediaService = socialMediaService;
+			_mapper = mapper;
 		}
 		[HttpGet]
 		public IActionResult SocialMediaList()
 		{
-			return Ok(_socialMediaService.TGetAll());
+			var value = _mapper.Map<List<ResultSocialMediaDto>>(_socialMediaService.TGetAll());
+			return Ok(value);
 		}
 
 		[HttpPost]
 		public IActionResult CreateSocialMedia(CreateSocialMediaDto createSocialMediaDto)
 		{
-			SocialMedia socialMedia = new SocialMedia()
-			{
-				Title = createSocialMediaDto.Title,
-				Icon = createSocialMediaDto.Icon,
-				Url = createSocialMediaDto.Url,
-			};
-			_socialMediaService.TAdd(socialMedia);
+			var value=_mapper.Map<SocialMedia>(createSocialMediaDto);
+			_socialMediaService.TAdd(value);
 			return Ok("Ekleme Başarılı");
 		}
 		[HttpDelete]
@@ -44,20 +43,15 @@ namespace SignalRApi.Controllers
 		[HttpPut]
 		public IActionResult UpdateSocialMedia(UpdateSocialMediaDto updateSocialMediaDto)
 		{
-			SocialMedia socialMedia = new SocialMedia()
-			{
-				SocialMediaId = updateSocialMediaDto.SocialMediaId,
-				Title = updateSocialMediaDto.Title,
-				Icon = updateSocialMediaDto.Icon,
-				Url = updateSocialMediaDto.Url,
-			};
-			_socialMediaService.TUpdate(socialMedia);
+			var value = _mapper.Map<SocialMedia>(updateSocialMediaDto);
+			_socialMediaService.TUpdate(value);
 			return Ok("Güncelleme Başarılı");
 		}
 		[HttpGet("{id}")]
 		public IActionResult GetSocialMedia(int id)
 		{
-			return Ok(_socialMediaService.TGetById(id));
+			var value = _socialMediaService.TGetById(id);
+			return Ok(_mapper.Map<GetSocialMediaDto>(value));
 		}
 	}
 }

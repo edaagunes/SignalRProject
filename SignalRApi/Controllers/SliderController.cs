@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SignalR.BusinessLayer.Abstract;
 using SignalR.DtoLayer.SliderDto;
@@ -11,27 +12,26 @@ namespace SignalRApi.Controllers
 	public class SliderController : ControllerBase
 	{
 		private readonly ISliderService _sliderService;
+		private readonly IMapper _mapper;
 
-		public SliderController(ISliderService sliderService)
+		public SliderController(ISliderService sliderService, IMapper mapper)
 		{
 			_sliderService = sliderService;
+			_mapper = mapper;
 		}
 
 		[HttpGet]
 		public IActionResult SliderList()
 		{
-			return Ok(_sliderService.TGetAll());
+			var value = _mapper.Map<List<ResultSliderDto>>(_sliderService.TGetAll());
+			return Ok(value);
 		}
 
 		[HttpPost]
 		public IActionResult CreateSlider(CreateSliderDto createSliderDto)
 		{
-			Slider slider = new Slider()
-			{
-				Title = createSliderDto.Title,
-				Description = createSliderDto.Description,
-			};
-			_sliderService.TAdd(slider);
+			var value = _mapper.Map<Slider>(createSliderDto);
+			_sliderService.TAdd(value);
 			return Ok("Ekleme Başarılı");
 		}
 		[HttpDelete]
@@ -44,19 +44,15 @@ namespace SignalRApi.Controllers
 		[HttpPut]
 		public IActionResult UpdateSlider(UpdateSliderDto updateSliderDto)
 		{
-			Slider slider = new Slider()
-			{
-				SliderId = updateSliderDto.SliderId,
-				Title = updateSliderDto.Title,
-				Description = updateSliderDto.Description,
-			};
-			_sliderService.TUpdate(slider);
+			var value = _mapper.Map<Slider>(updateSliderDto);
+			_sliderService.TUpdate(value);
 			return Ok("Güncelleme Başarılı");
 		}
 		[HttpGet("{id}")]
 		public IActionResult GetSlider(int id)
 		{
-			return Ok(_sliderService.TGetById(id));
+			var value= _sliderService.TGetById(id);
+			return Ok(_mapper.Map<GetSliderDto>(value));
 		}
 	}
 }

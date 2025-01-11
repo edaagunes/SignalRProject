@@ -26,6 +26,7 @@ namespace SignalRApi.Controllers
 		{
 			return Ok(_productService.TGetAll());
 		}
+
 		[HttpGet("ProductListWithCategory")]
 		public IActionResult ProductListWithCategory()
 		{
@@ -38,18 +39,11 @@ namespace SignalRApi.Controllers
 		[HttpPost]
 		public IActionResult CreateProduct(CreateProductDto createProductDto)
 		{
-			Product product = new Product()
-			{
-				ImageUrl = createProductDto.ImageUrl,
-				Price = createProductDto.Price,
-				ProductName = createProductDto.ProductName,
-				ProductStatus = createProductDto.ProductStatus,
-				Description = createProductDto.Description,
-				CategoryId = createProductDto.CategoryId
-			};
-			_productService.TAdd(product);
+			var value=_mapper.Map<Product>(createProductDto);
+			_productService.TAdd(value);
 			return Ok("Ekleme Başarılı");
 		}
+
 		[HttpDelete("{id}")]
 		public IActionResult DeleteProduct(int id)
 		{
@@ -57,26 +51,20 @@ namespace SignalRApi.Controllers
 			_productService.TDelete(value);
 			return Ok("Silme Başarılı");
 		}
+
 		[HttpPut]
 		public IActionResult UpdateProduct(UpdateProductDto updateProductDto)
 		{
-			Product product = new Product()
-			{
-				ProductId = updateProductDto.ProductId,
-				ImageUrl = updateProductDto.ImageUrl,
-				Price = updateProductDto.Price,
-				ProductName = updateProductDto.ProductName,
-				ProductStatus = updateProductDto.ProductStatus,
-				Description = updateProductDto.Description,
-				CategoryId = updateProductDto.CategoryId
-			};
-			_productService.TUpdate(product);
+			var value = _mapper.Map<Product>(updateProductDto);
+			_productService.TUpdate(value);
 			return Ok("Güncelleme Başarılı");
 		}
+
 		[HttpGet("{id}")]
 		public IActionResult GetProduct(int id)
 		{
-			return Ok(_productService.TGetById(id));
+			var value= _productService.TGetById(id);
+			return Ok(_mapper.Map<GetProductDto>(value));
 		}
 		[HttpGet("ProductCount")]
 		public IActionResult ProductCount()

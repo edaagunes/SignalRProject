@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SignalR.BusinessLayer.Abstract;
 using SignalR.DtoLayer.AboutDto;
@@ -11,27 +12,25 @@ namespace SignalRApi.Controllers
 	public class AboutController : ControllerBase
 	{
 		private readonly IAboutService _aboutService;
+		private readonly IMapper _mapper;
 
-		public AboutController(IAboutService aboutService)
+		public AboutController(IAboutService aboutService, IMapper mapper)
 		{
 			_aboutService = aboutService;
+			_mapper = mapper;
 		}
 
 		[HttpGet]
 		public IActionResult AboutList()
 		{
-			return Ok(_aboutService.TGetAll());
+			var values = _aboutService.TGetAll();
+			return Ok(_mapper.Map<List<ResultAboutDto>>(values));
 		}
 		[HttpPost]
 		public IActionResult CreateAbout(CreateAboutDto createAboutDto)
 		{
-			About about = new About();
-			{
-				about.ImageUrl = createAboutDto.ImageUrl;
-				about.Title = createAboutDto.Title;
-				about.Description = createAboutDto.Description;
-			};
-			_aboutService.TAdd(about);
+			var value=_mapper.Map<About>(createAboutDto);
+			_aboutService.TAdd(value);
 			return Ok("Ekleme Başarılı");
 		}
 		[HttpDelete]
@@ -44,20 +43,15 @@ namespace SignalRApi.Controllers
 		[HttpPut]
 		public IActionResult UpdateAbout(UpdateAboutDto updateAboutDto)
 		{
-			About about = new About();
-			{
-				about.AboutId = updateAboutDto.AboutId;
-				about.ImageUrl = updateAboutDto.ImageUrl;
-				about.Title = updateAboutDto.Title;
-				about.Description = updateAboutDto.Description;
-			};
-			_aboutService.TUpdate(about);
+			var value = _mapper.Map<About>(updateAboutDto);
+			_aboutService.TUpdate(value);
 			return Ok("Güncelleme Başarılı");
 		}
 		[HttpGet("{id}")]
 		public IActionResult GetAbout(int id)
 		{
-			return Ok(_aboutService.TGetById(id));
+			var value=_aboutService.TGetById(id);
+			return Ok(_mapper.Map<GetAboutDto>(value));
 		}
 	}
 }
