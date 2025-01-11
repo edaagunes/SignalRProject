@@ -30,16 +30,122 @@
 					connection.on("ReceiveTotalMoney", (value) => {
 						$("#totalMoney").text(value + "₺");
 					});
-					
+
 					connection.on("ReceiveActiveOrderCount", (value2) => {
 						$("#activeOrder").text(value2);
 					});
-					
+
 					connection.on("ReceiveMenuTableCount", (value3) => {
 						$("#menuTable").text(value3);
 					});
+
+					connection.on("ReceiveMenuTableCount", (value4) => {
+						$("#totalMenuTableCountProgress").empty();
+						$("#totalMenuTableCountProgress").append(
+						`<div class="d-flex justify-content-between mb-1">
+							<span class="text-muted">Toplam Masa Sayısı</span>
+							<span class="text-muted fw-bold">${value4} adet</span>
+						  </div>
+						<div class="progress mb-2" style="height: 7px;">
+							<div class="progress-bar bg-success" role="progressbar" style="width: ${value4}%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="${value4}"></div>
+						</div>
+						`);
+					});
+
+					connection.on("ReceiveProductPriceAvg", (value5) => {
+						$("#ReceiveProductPriceAvgProgress").empty();
+						$("#ReceiveProductPriceAvgProgress").append(
+						`<div class="d-flex justify-content-between mb-1">
+							<span class="text-muted">Ortalama Ürün Fiyatı</span>
+							<span class="text-muted fw-bold">${value5} ₺</span>
+						  </div>
+						<div class="progress mb-2" style="height: 7px;">
+							<div class="progress-bar bg-info" role="progressbar" style="width: ${value5}%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="${value5}"></div>
+						</div>
+						`);
+					});
+
+					connection.on("ReceiveProductAvgByHamburger", (value6) => {
+						 const formattedValue = parseFloat(value6).toFixed(2);
+						$("#ReceiveProductAvgByHamburgerProgress").empty();
+						$("#ReceiveProductAvgByHamburgerProgress").append(
+						`<div class="d-flex justify-content-between mb-1">
+							<span class="text-muted">Ortalama Hamburger Fiyatı</span>
+							<span class="text-muted fw-bold">${formattedValue} ₺</span>
+						  </div>
+						<div class="progress mb-2" style="height: 7px;">
+							<div class="progress-bar bg-primary" role="progressbar" style="width: ${formattedValue}%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="${formattedValue}"></div>
+						</div>
+						`);
+					});
+
+					connection.on("ReceiveProductCountByCategoryNameDrink", (value7) => {
+						$("#ReceiveProductCountByCategoryNameDrinkProgress").empty();
+						$("#ReceiveProductCountByCategoryNameDrinkProgress").append(
+						`<div class="d-flex justify-content-between mb-1">
+							<span class="text-muted">İçecek Sayısı</span>
+							<span class="text-muted fw-bold">${value7} tane</span>
+						  </div>
+						<div class="progress mb-2" style="height: 7px;">
+							<div class="progress-bar bg-success" role="progressbar" style="width: ${value7}%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="${value7}"></div>
+						</div>
+						`);
+					});
+
+					connection.on("ReceiveTotalOrderCount", (value8) => {
+						$("#ReceiveTotalOrderCountProgress").empty();
+						$("#ReceiveTotalOrderCountProgress").append(
+						`<div class="d-flex justify-content-between mb-1">
+							<span class="text-muted">Toplam Sipariş Sayısı</span>
+							<span class="text-muted fw-bold">${value8} tane</span>
+						  </div>
+						<div class="progress mb-2" style="height: 7px;">
+							<div class="progress-bar bg-dark" role="progressbar" style="width: ${value8}%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="${value8}"></div>
+						</div>
+						`);
+					});
+
+					connection.on("ReceiveProductPriceBySteakBurger", (value9) => {
+						$("#ReceiveProductPriceBySteakBurgerProgress").empty();
+						$("#ReceiveProductPriceBySteakBurgerProgress").append(
+						`<div class="d-flex justify-content-between mb-1">
+							<span class="text-muted">Steak Burger Fiyatı</span>
+							<span class="text-muted fw-bold">${value9} ₺</span>
+						  </div>
+						<div class="progress mb-2" style="height: 7px;">
+							<div class="progress-bar bg-danger" role="progressbar" style="width: ${value9}%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="${value9}"></div>
+						</div>
+						`);
+					});
+
+					connection.on("ReceiveTotalPriceByDrinkCategory", (value10) => {
+						$("#ReceiveTotalPriceByDrinkCategoryProgress").empty();
+						$("#ReceiveTotalPriceByDrinkCategoryProgress").append(
+						`<div class="d-flex justify-content-between mb-1">
+							<span class="text-muted">İçecek Kategorisi Toplam Kazanç</span>
+							<span class="text-muted fw-bold">${value10} ₺</span>
+						  </div>
+						<div class="progress mb-2" style="height: 7px;">
+							<div class="progress-bar bg-success" role="progressbar" style="width: ${value10}%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="${value10}"></div>
+						</div>
+						`);
+					});
+
+					connection.on("ReceiveTotalPriceBySaladCategory", (value11) => {
+						$("#ReceiveTotalPriceBySaladCategoryProgress").empty();
+						$("#ReceiveTotalPriceBySaladCategoryProgress").append(
+						`<div class="d-flex justify-content-between mb-1">
+							<span class="text-muted">Salata Kategorisi Toplam Kazanç</span>
+							<span class="text-muted fw-bold">${value11} ₺</span>
+						  </div>
+						<div class="progress mb-2" style="height: 7px;">
+							<div class="progress-bar bg-secondary" role="progressbar" style="width: ${value11}%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="${value11}"></div>
+						</div>
+						`);
+					});
+
 			});
-				
+
 		</script>
 
 		<h4 class="page-title">Admin İstatistikler & Durumlar</h4>
@@ -51,8 +157,19 @@
 							<div class="card-body">
 								<p class="fw-bold mt-1">Kasadaki Toplam Tutar</p>
 								<h4 id="totalMoney"><b></b></h4>
+								<hr />
+								<p class="fw-bold mt-1">Toplam Ürün Fiyatı</p>
+								<h4 id="totalMoney">1465.74₺<b></b></h4>
+								<hr />
+								<p class="fw-bold mt-1">Ortalama Ürün Fiyatı</p>
+								<h4 id="totalMoney">48.65₺<b></b></h4>
+								<hr />
+								<p class="fw-bold mt-1">Son Sipariş Tutarı</p>
+								<h4 id="totalMoney">264.00₺<b></b></h4>
+
 								<a href="/Order/CreateOrder" class="btn btn-primary btn-full text-left mt-3 mb-3"><i class="la la-plus"></i> Yeni Sipariş</a>
 							</div>
+
 							<div class="card-footer">
 								<ul class="nav">
 									<li class="nav-item"><a class="btn btn-default btn-link" href="/Order/Index"><i class="la la-history"></i> Siparişler</a></li>
@@ -64,94 +181,29 @@
 					<div class="col-md-5">
 						<div class="card">
 							<div class="card-body">
-								<div class="progress-card">
-									<div class="d-flex justify-content-between mb-1">
-										<span class="text-muted">Hedef Kazanç</span>
-										<span class="text-muted fw-bold"></span>
-									</div>
-									<div class="progress mb-2" style="height: 7px;">
-										<div class="progress-bar bg-success" role="progressbar" style="width: 78%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="78%"></div>
-									</div>
-								</div>
-								<div class="progress-card">
-									<div class="d-flex justify-content-between mb-1">
-										<span class="text-muted">Orders</span>
-										<span class="text-muted fw-bold"> 576</span>
-									</div>
-									<div class="progress mb-2" style="height: 7px;">
-										<div class="progress-bar bg-info" role="progressbar" style="width: 65%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="65%"></div>
-									</div>
-								</div>
-								<div class="progress-card">
-									<div class="d-flex justify-content-between mb-1">
-										<span class="text-muted">Tasks Complete</span>
-										<span class="text-muted fw-bold"> 70%</span>
-									</div>
-									<div class="progress mb-2" style="height: 7px;">
-										<div class="progress-bar bg-primary" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="70%"></div>
-									</div>
-								</div>
-								<div class="progress-card">
-									<div class="d-flex justify-content-between mb-1">
-										<span class="text-muted">Open Rate</span>
-										<span class="text-muted fw-bold"> 60%</span>
-									</div>
-									<div class="progress mb-2" style="height: 7px;">
-										<div class="progress-bar bg-warning" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="60%"></div>
-									</div>
-								</div>
-								<div class="progress-card">
-									<div class="d-flex justify-content-between mb-1">
-										<span class="text-muted">Open Rate</span>
-										<span class="text-muted fw-bold"> 60%</span>
-									</div>
-									<div class="progress mb-2" style="height: 7px;">
-										<div class="progress-bar bg-warning" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="60%"></div>
-									</div>
-								</div>
-								<div class="progress-card">
-									<div class="d-flex justify-content-between mb-1">
-										<span class="text-muted">Open Rate</span>
-										<span class="text-muted fw-bold"> 60%</span>
-									</div>
-									<div class="progress mb-2" style="height: 7px;">
-										<div class="progress-bar bg-warning" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="60%"></div>
-									</div>
-								</div>
-								<div class="progress-card">
-									<div class="d-flex justify-content-between mb-1">
-										<span class="text-muted">Open Rate</span>
-										<span class="text-muted fw-bold"> 60%</span>
-									</div>
-									<div class="progress mb-2" style="height: 7px;">
-										<div class="progress-bar bg-warning" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="60%"></div>
-									</div>
-								</div>
-								<div class="progress-card">
-									<div class="d-flex justify-content-between mb-1">
-										<span class="text-muted">Open Rate</span>
-										<span class="text-muted fw-bold"> 60%</span>
-									</div>
-									<div class="progress mb-2" style="height: 7px;">
-										<div class="progress-bar bg-warning" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="60%"></div>
-									</div>
-								</div>
-								<div class="progress-card">
-									<div class="d-flex justify-content-between mb-1">
-										<span class="text-muted">Open Rate</span>
-										<span class="text-muted fw-bold"> 60%</span>
-									</div>
-									<div class="progress mb-2" style="height: 7px;">
-										<div class="progress-bar bg-warning" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="60%"></div>
-									</div>
-								</div>
+								<div class="progress-card" id="totalMenuTableCountProgress"></div>
+
+								<div class="progress-card" id="ReceiveProductPriceAvgProgress"></div>
+
+								<div class="progress-card" id="ReceiveProductAvgByHamburgerProgress"></div>
+
+								<div class="progress-card" id="ReceiveProductCountByCategoryNameDrinkProgress"></div>
+
+								<div class="progress-card" id="ReceiveProductPriceBySteakBurgerProgress"></div>
+
+								<div class="progress-card" id="ReceiveTotalOrderCountProgress"></div>
+
+								<div class="progress-card" id="ReceiveTotalPriceByDrinkCategoryProgress"></div>
+
+								<div class="progress-card" id="ReceiveTotalPriceBySaladCategoryProgress"></div>
+
 							</div>
 						</div>
 					</div>
 					<div class="col-md-3">
 						<div class="card card-stats">
 							<div class="card-body">
-								<p class="fw-bold mt-1">Statistic</p>
+								<p class="fw-bold mt-1">İstatistikler</p>
 								<div class="row">
 									<div class="col-5">
 										<div class="icon-big text-center icon-warning">
@@ -161,7 +213,7 @@
 									<div class="col-7 d-flex align-items-center">
 										<div class="numbers">
 											<p class="card-category">Aktif Siparişler</p>
-											<h4 class="card-title" id="activeOrder"></h4>
+											<h4 class="card-title" id="activeOrder">3</h4>
 										</div>
 									</div>
 								</div>
@@ -176,6 +228,48 @@
 										<div class="numbers">
 											<p class="card-category">Masa Sayısı</p>
 											<h4 class="card-title" id="menuTable"></h4>
+										</div>
+									</div>
+								</div>
+								<hr />
+								<div class="row">
+									<div class="col-5">
+										<div class="icon-big text-center">
+											<i class="la la-bookmark text-success"></i>
+										</div>
+									</div>
+									<div class="col-7 d-flex align-items-center">
+										<div class="numbers">
+											<p class="card-category">Kategori Sayısı</p>
+											<h4 class="card-title" id="menuTable">6</h4>
+										</div>
+									</div>
+								</div>
+								<hr />
+								<div class="row">
+									<div class="col-5">
+										<div class="icon-big text-center">
+											<i class="la la-cutlery text-danger"></i>
+										</div>
+									</div>
+									<div class="col-7 d-flex align-items-center">
+										<div class="numbers">
+											<p class="card-category">Ürün Sayısı</p>
+											<h4 class="card-title" id="menuTable">10</h4>
+										</div>
+									</div>
+								</div>
+								<hr />
+								<div class="row">
+									<div class="col-5">
+										<div class="icon-big text-center">
+											<i class="la la-glass text-dark"></i>
+										</div>
+									</div>
+									<div class="col-7 d-flex align-items-center">
+										<div class="numbers">
+											<p class="card-category">Rezervasyon Sayısı</p>
+											<h4 class="card-title" id="menuTable">28</h4>
 										</div>
 									</div>
 								</div>
