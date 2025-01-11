@@ -17,7 +17,7 @@ namespace SignalRWebUI.ViewComponents.DefaultComponents
 		public async Task<IViewComponentResult> InvokeAsync()
 		{
 			var client = _httpClientFactory.CreateClient();
-			var responseMessage = await client.GetAsync("https://localhost:7191/api/Product");
+			var responseMessage = await client.GetAsync("https://localhost:7191/api/Product/GetTake9Products");
 
 			if (responseMessage.IsSuccessStatusCode)
 			{
