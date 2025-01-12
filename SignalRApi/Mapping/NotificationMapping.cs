@@ -8,10 +8,10 @@ namespace SignalRApi.Mapping
 	{
 		public NotificationMapping()
 		{
-			CreateMap<About, ResultNotificationDto>().ReverseMap();
-			CreateMap<About, CreateNotificationDto>().ReverseMap();
-			CreateMap<About, UpdateNotificationDto>().ReverseMap();
-			CreateMap<About, GetByIdNotificationDto>().ReverseMap();
+			CreateMap<Notification, ResultNotificationDto>().ReverseMap();
+			CreateMap<Notification, CreateNotificationDto>().ReverseMap();
+			CreateMap<Notification, UpdateNotificationDto>().ReverseMap();
+			CreateMap<Notification, GetByIdNotificationDto>().ReverseMap();
 		}
 	}
 }
