@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SignalR.EntityLayer.Entities;
 using SignalRWebUI.Dtos.BasketDtos;
+using SignalRWebUI.Dtos.CouponDto;
 using System.Text;
 
 namespace SignalRWebUI.Controllers
@@ -60,5 +61,58 @@ namespace SignalRWebUI.Controllers
 			}
 			return View();
 		}
+
+		[HttpPost]
+		public async Task<IActionResult> ApplyCoupon([FromBody] CouponDto couponDto,int id)
+		{
+			if (string.IsNullOrEmpty(couponDto.CouponCode))
+			{
+				return Json(new { success = false, message = "Kupon kodu boş olamaz." });
+			}
+
+			// Kupon koduna göre indirim oranı belirle
+			decimal discount = 0;
+			if (couponDto.CouponCode == "INDIRIM10")
+			{
+				discount = 10; // %10 indirim
+			}
+			else if (couponDto.CouponCode == "INDIRIM20")
+			{
+				discount = 20; // %20 indirim
+			}
+			else
+			{
+				return Json(new { success = false, message = "Geçersiz kupon kodu." });
+			}
+
+			// Sepet toplamını API'den çek
+			var client = _httpClientFactory.CreateClient();
+			//int menuTableId = int.Parse(TempData["tableId"].ToString());
+			var responseMessage = await client.GetAsync($"https://localhost:7191/api/Basket/TotalPriceBasketByMenuTableId/{id}");
+
+			if (!responseMessage.IsSuccessStatusCode)
+			{
+				return Json(new { success = false, message = "Sepet toplamı alınamadı." });
+			}
+
+			var jsonData = await responseMessage.Content.ReadAsStringAsync();
+			decimal basketTotalPrice = JsonConvert.DeserializeObject<decimal>(jsonData);
+
+			// İndirim uygulanmış fiyat
+			decimal basketTotalPriceWithDiscount = basketTotalPrice - (basketTotalPrice * discount / 100);
+			decimal tax = (basketTotalPriceWithDiscount / 100) * 10;
+			decimal basketTotalPriceWithTax = basketTotalPriceWithDiscount + tax;
+
+			return Json(new
+			{
+				success = true,
+				discount = discount,
+				totalPrice = basketTotalPriceWithDiscount,
+				tax = tax,
+				totalPriceWithTax = basketTotalPriceWithTax
+			});
+		}
+
+
 	}
 }

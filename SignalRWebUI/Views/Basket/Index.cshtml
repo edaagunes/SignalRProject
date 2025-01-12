@@ -78,7 +78,7 @@
 					<div class="input-group">
 						<input type="text" id="couponcode" class="form-control border-1 p-4" placeholder="Kupon Kodunuz"/>
 						<div>
-							<a style="height:48px; padding-top:11px; margin-left:5px" class="btn btn-warning" id="btncouponcode">Kuponu Uygula</a>
+							<a style="height:48px; padding-top:11px; margin-left:5px" class="btn btn-warning" id="btncouponcode" onclick="applyCoupon(@TempData["tableId"])">Kuponu Uygula</a>
 						</div>
 					</div>
 				</form>
@@ -158,4 +158,56 @@
 			});
 		});
 	}
+
+				function applyCoupon(menuTableId) {
+		const couponCode = document.getElementById("couponcode").value;
+
+		if (!couponCode) {
+			Swal.fire({
+				icon: 'warning',
+				title: 'Uyarı',
+				text: 'Lütfen bir kupon kodu girin.',
+				confirmButtonText: 'Tamam'
+			});
+			return;
+		}
+
+		fetch(`/Basket/ApplyCoupon?id=${menuTableId}`, { 
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ CouponCode: couponCode })
+		})
+		.then(response => response.json())
+		.then(data => {
+			if (data.success) {
+				Swal.fire({
+					icon: 'success',
+					title: 'Kupon Uygulandı',
+					text: `İndirim oranı: ${data.discount}%`,
+					confirmButtonText: 'Tamam'
+				});
+				document.getElementById("totalprice").textContent = `${data.totalPrice}`;
+				document.getElementById("kdv").textContent = `${data.tax}₺`;
+				document.getElementById("totalpricewithkdv").textContent = `${data.totalPriceWithTax}₺`;
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Hata',
+					text: data.message,
+					confirmButtonText: 'Tamam'
+				});
+			}
+		})
+		.catch(() => {
+			Swal.fire({
+				icon: 'error',
+				title: 'Hata',
+				text: 'Sunucuya bağlanılamadı. Lütfen internet bağlantınızı kontrol edin.',
+				confirmButtonText: 'Tamam'
+			});
+		});
+	}
+
 </script>

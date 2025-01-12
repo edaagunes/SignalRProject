@@ -31,5 +31,12 @@ namespace SignalR.DataAccessLayer.EntityFramework
 			var values=context.Baskets.Where(x=>x.MenuTableId == id).Include(y=>y.Product).ToList();
 			return values;
 		}
+
+		public decimal TotalPriceBasketByMenuTableId(int menuTableId)
+		{
+			using var context = new SignalRContext();
+			var basketPrice = context.Baskets.Where(x => x.MenuTableId == menuTableId).Sum(x => x.TotalPrice);
+			return basketPrice;
+		}
 	}
 }

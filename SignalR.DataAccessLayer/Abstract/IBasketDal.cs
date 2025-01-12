@@ -11,5 +11,6 @@ namespace SignalR.DataAccessLayer.Abstract
 	{
 		List<Basket> GetBasketByMenuTableNumber(int id);
 		void DeleteBasketByMenuTableId(int menuTableId);
+		decimal TotalPriceBasketByMenuTableId(int menuTableId);
 	}
 }

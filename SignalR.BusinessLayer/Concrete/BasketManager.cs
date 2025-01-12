@@ -49,6 +49,11 @@ namespace SignalR.BusinessLayer.Concrete
 			return _basketDal.GetById(id);
 		}
 
+		public decimal TTotalPriceBasketByMenuTableId(int menuTableId)
+		{
+			return _basketDal.TotalPriceBasketByMenuTableId(menuTableId);
+		}
+
 		public void TUpdate(Basket entity)
 		{
 			throw new NotImplementedException();

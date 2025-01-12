@@ -70,5 +70,12 @@ namespace SignalRApi.Controllers
 			return Ok("Tabloya ait tüm ürünler başarıyla silindi.");
 		}
 
+		[HttpGet("TotalPriceBasketByMenuTableId/{menuTableId}")]
+		public IActionResult TotalPriceBasket(int menuTableId)
+		{
+			var value=_basketService.TTotalPriceBasketByMenuTableId(menuTableId);
+			return Ok(value);
+		}
+
 	}
 }

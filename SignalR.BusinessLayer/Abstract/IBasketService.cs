@@ -11,6 +11,6 @@ namespace SignalR.BusinessLayer.Abstract
 	{
 		List<Basket> TGetBasketByMenuTableNumber(int id);
 		void TDeleteBasketByMenuTableId(int menuTableId);
-
+		decimal TTotalPriceBasketByMenuTableId(int menuTableId);
 	}
 }
