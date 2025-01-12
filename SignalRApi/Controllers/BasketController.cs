@@ -62,5 +62,13 @@ namespace SignalRApi.Controllers
 			_basketService.TDelete(value);
 			return Ok("Başarıyla silindi");
 		}
+
+		[HttpDelete("DeleteByMenuTable/{menuTableId}")]
+		public IActionResult DeleteBasketByMenuTable(int menuTableId)
+		{
+			_basketService.TDeleteBasketByMenuTableId(menuTableId);
+			return Ok("Tabloya ait tüm ürünler başarıyla silindi.");
+		}
+
 	}
 }

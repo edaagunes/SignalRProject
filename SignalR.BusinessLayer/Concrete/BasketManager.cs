@@ -29,6 +29,11 @@ namespace SignalR.BusinessLayer.Concrete
 			_basketDal.Delete(entity);
 		}
 
+		public void TDeleteBasketByMenuTableId(int menuTableId)
+		{
+			_basketDal.DeleteBasketByMenuTableId(menuTableId);
+		}
+
 		public List<Basket> TGetAll()
 		{
 			throw new NotImplementedException();

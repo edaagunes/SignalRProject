@@ -17,6 +17,14 @@ namespace SignalR.DataAccessLayer.EntityFramework
 		{
 		}
 
+		public void DeleteBasketByMenuTableId(int menuTableId)
+		{
+			using var context = new SignalRContext();
+			var basketsToDelete = context.Baskets.Where(x => x.MenuTableId == menuTableId).ToList();
+			context.Baskets.RemoveRange(basketsToDelete);
+			context.SaveChanges();
+		}
+
 		public List<Basket> GetBasketByMenuTableNumber(int id)
 		{
 			using var context = new SignalRContext();

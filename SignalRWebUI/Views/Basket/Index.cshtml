@@ -102,7 +102,7 @@
 							<h5><span id="totalpricewithkdv">@basketTotalPriceWithTax</span></h5>
 						</div>
 						<br />
-						<button id="btnchecked" class="btn btn-block btn-warning font-weight-bold my-3">Siparişi Tamamla</button>
+						<button id="btnchecked" class="btn btn-block btn-warning font-weight-bold my-3" onclick="completeOrder(@TempData["tableId"])">Siparişi Tamamla</button>
 					</div>
 				</div>
 			</div>
@@ -119,4 +119,43 @@
 
 </html>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+
+<script>
+	function completeOrder(menuTableId) {
+		fetch(`/Basket/CompleteOrder/${menuTableId}`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
+		.then(response => {
+			if (response.ok) {
+				Swal.fire({
+					icon: 'success',
+					title: 'Sipariş Tamamlandı',
+					text: 'Siparişiniz başarıyla tamamlandı!',
+					confirmButtonText: 'Tamam'
+				}).then(() => {
+					window.location.href = "/CustomerTable/CustomerTableList";
+				});
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Hata',
+					text: 'Bir hata oluştu. Lütfen tekrar deneyin.',
+					confirmButtonText: 'Tamam'
+				});
+			}
+		})
+		.catch(() => {
+			Swal.fire({
+				icon: 'error',
+				title: 'Hata',
+				text: 'Sunucuya bağlanılamadı. Lütfen internet bağlantınızı kontrol edin.',
+				confirmButtonText: 'Tamam'
+			});
+		});
+	}
+</script>
