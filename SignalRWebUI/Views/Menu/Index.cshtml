@@ -47,7 +47,7 @@
 											<h6>
 												@item.Price
 											</h6>
-											<a href="javascript:void(0)" onclick="showProductId(@item.ProductId,`@item.ProductName`)">
+											<a href="javascript:void(0)" onclick="showProductId(@item.ProductId,`@item.ProductName`,@ViewBag.v)">
 												<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
 												<g>
 												<g>
@@ -146,22 +146,43 @@
 
 
 <script>
-	function showProductId(value,name)
+	function showProductId(value,name,menuTableId)
 	{
 		var valueName=name;
 		var id =value;
-		$.ajax({
-			type:'POST',
-			url: "/Menu/AddBasket/" +id,
-			data:{item: id},
-			contentType:'json',
-			success: function(){
+
+
+			$.ajax({
+		type: 'POST',
+		url: "/Menu/AddBasket",
+		data: { id: id, menuTableId: menuTableId },
+		success: function (response) {
+			if (response.success) {
 				Swal.fire({
 					title: valueName,
-					text: "Seçtiğiniz Ürün Sepete Eklendi!",
-					icon:"success"
+					text: response.message,
+					icon: "success"
+				});
+			} else {
+				Swal.fire({
+					title: "Hata",
+					text: response.message,
+					icon: "error"
 				});
 			}
-		});
+		},
+
+			
+
+
+		error: function () {
+			Swal.fire({
+				title: "Hata",
+				text: "Bir hata oluştu, lütfen tekrar deneyin.",
+				icon: "error"
+			});
+		}
+	});
+
 	}
 </script>
