@@ -6,7 +6,7 @@ using System.Net.Http;
 
 namespace SignalRWebUI.ViewComponents.MenuComponents
 {
-	public class _MenuCategoryFilterComponentPartial:ViewComponent
+	public class _MenuCategoryFilterComponentPartial : ViewComponent
 	{
 		private readonly IHttpClientFactory _httpClientFactory;
 
@@ -15,10 +15,10 @@ namespace SignalRWebUI.ViewComponents.MenuComponents
 			_httpClientFactory = httpClientFactory;
 		}
 
-		public async Task<IViewComponentResult> Invoke()
+		public async Task<IViewComponentResult> InvokeAsync()
 		{
 			var client = _httpClientFactory.CreateClient();
-			var responseMessage = await client.GetAsync("https://localhost:7191/api/Categpry");
+			var responseMessage = await client.GetAsync("https://localhost:7191/api/Category");
 
 			if (responseMessage.IsSuccessStatusCode)
 			{
