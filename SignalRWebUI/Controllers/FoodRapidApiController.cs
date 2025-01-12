@@ -25,13 +25,42 @@ namespace SignalRWebUI.Controllers
 			{
 				response.EnsureSuccessStatusCode();
 				var body = await response.Content.ReadAsStringAsync();
-				//var values=JsonConvert.DeserializeObject<List<ResultTastyApi>>(body);
-				//return View(values.ToList());
 				var root = JsonConvert.DeserializeObject<RootTastyApi>(body);
-				var values=root.Results;
+				var values = root.Results;
+				foreach (var recipe in values)
+				{
+					recipe.Name = TranslateStatic(recipe.Name);
+				}
 				return View(values.ToList());
 			}
-			
+
 		}
+
+		private static readonly Dictionary<string, string> TranslationDictionary = new Dictionary<string, string>
+{
+	{ "Low-Carb Avocado Chicken Salad", "Avokadolu Tavuk Salatası" },
+	{ "Tomato And Anchovy Pasta", "Domates Soslu Makarna" },
+	{ "One-Pot Lemon Garlic Shrimp Pasta", "Limonlu Sarımsaklı Karidesli Makarna" },
+	{ "Chocolate Mug Cake", "Çikolatalı Fincan Kek" },
+	{ "3-Ingredient Teriyaki Chicken", "3 Malzemeli Teriyaki Tavuk" },
+	{ "3 Ingredient Peanut Butter Cookies", "3 Malzemeli Fıstık Ezmesi Kurabiyeleri" },
+	{ "Whipped Coffee", "Çırpılmış Kahve" },
+	{ "Creamy Chicken Penne Pasta", "Kremalı Tavuklu Penne Makarna" },
+	{ "Garlic Shrimp Bacon Alfredo", "Sarımsaklı Karidesli Ve Baconlı Alfredo Soslu Makarna" },
+	{ "Easy One-Pot Mac ‘n’ Cheese", "Kolay Tek Tencere Mac ‘n’ Cheese" },
+	{ "Garlic Shrimp Scampi", "Sarımsaklı Karidesli Şkampi" },
+	{ "Birthday Cake Mug Cake", "Doğum Günü Fincan Keki" },
+	{ "Microwave 5-Minute Mac 'N' Cheese", "Mikrodalgada 5 Dakikada Mac ‘N’ Cheese" },
+	{ "Milkshake: The Tiffany", "Milkshake: The Tiffany" },
+	{ "Spaghetti With Garlic And Oil", "Sarımsaklı Ve Zeytinyağlı Spagetti" },
+	{ "Weekday Meal-Prep Pesto Chicken & Veggies", "Günlük Öğün Hazırlığı Pesto Tavuk & Sebzeler" },
+};
+
+
+		public string TranslateStatic(string text)
+		{
+			return TranslationDictionary.ContainsKey(text) ? TranslationDictionary[text] : text;
+		}
+
 	}
 }
