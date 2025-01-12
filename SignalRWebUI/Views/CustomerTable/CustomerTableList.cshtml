@@ -111,14 +111,16 @@
 						@if (item.Status == true)
 						{
 							<div class="widget-icon">
-								<i class="fas fa-chair"></i>
+								<a href="/Basket/Index/@item.MenuTableId"><i class="fa-solid fa-cash-register"></i></a>
 							</div>
+
 						}
 						else
 						{
 							<div class="widget-icon">
 								<a href="/Menu/Index/@item.MenuTableId"><i class="fas fa-chair"></i></a>
 							</div>
+
 						}
 						<div class="widget-text">
 							<h3>@item.Name</h3>

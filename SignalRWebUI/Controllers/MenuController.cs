@@ -51,6 +51,10 @@ namespace SignalRWebUI.Controllers
 			StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 			var responseMessage = await client.PostAsync("https://localhost:7191/api/Basket", content);
 
+			var client2 = _httpClientFactory.CreateClient();
+			await client2.GetAsync("https://localhost:7191/api/MenuTables/ChangeMenuTableStatusToTrue?id=" + menuTableId);
+			
+
 			if (responseMessage.IsSuccessStatusCode)
 			{
 				return Json(new { success = true, message = "Ürün başarıyla sepete eklendi." });
