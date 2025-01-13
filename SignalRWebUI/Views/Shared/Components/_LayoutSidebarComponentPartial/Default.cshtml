@@ -7,7 +7,7 @@
 			<div class="info">
 				<a class="" data-toggle="collapse" href="#collapseExample" aria-expanded="true">
 					<span>
-						 Yönetim Paneli
+						Yönetim Paneli
 						<span class="user-level">Admin</span>
 						<span class="caret"></span>
 					</span>
@@ -42,7 +42,7 @@
 					<p>Siteye Git</p>
 				</a>
 			</li>
-			
+
 			<li class="nav-item">
 				<a href="/Menu/Index">
 					<i class="la la-moon-o"></i>
@@ -166,3 +166,33 @@
 		</ul>
 	</div>
 </div>
+
+<style>
+	.nav-item.active {
+		background-color: #f8f9fa; 
+		font-weight: bold;
+		color: #007bff;
+	}
+
+		.nav-item.active a {
+			color: #007bff; 
+		}
+
+</style>
+
+<script>
+	$(document).ready(function () {
+		// Geçerli URL'yi al
+		var currentUrl = window.location.pathname;
+
+		// Menüdeki tüm linkleri kontrol et
+		$('.sidebar .nav-item a').each(function () {
+			var link = $(this).attr('href');
+
+			// Eğer link, geçerli URL'ye eşitse 'active' sınıfı ekle
+			if (currentUrl === link) {
+				$(this).closest('.nav-item').addClass('active');
+			}
+		});
+	});
+</script>
