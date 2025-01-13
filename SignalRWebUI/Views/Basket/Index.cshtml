@@ -65,7 +65,7 @@
 								<td class="align-middle">@itemCount</td>
 								<td class="align-middle">@item.Price</td>
 								<td class="align-middle">@totalPriceWithCount</td>
-								<td class="align-middle btn-delete"><a class="btn btn-sm btn-danger" href="/Basket/DeleteBasket/@item.BasketId"><i class="fa fa-trash"></i></a></td>
+								<td class="align-middle btn-delete"><a class="btn btn-sm btn-danger" href="/Basket/DeleteBasket/@item.BasketId?tableId=@TempData["tableId"]"><i class="fa fa-trash"></i></a></td>
 							</tr>
 						</tbody>
 					}

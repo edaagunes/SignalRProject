@@ -21,7 +21,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/Default/Index">Anasayfa </a>
                         </li>
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" href="/Menu/Index">Menü <span class="sr-only"></span> </a>
                         </li>
                         <li class="nav-item">
@@ -107,3 +107,32 @@
     </header>
     <!-- end header section -->
 </div>
+
+<style>
+    .nav-item.active {
+        background-color: #f8f9fa;
+        font-weight: bold;
+        color: #f08216;
+    }
+
+        .nav-item.active a {
+            color: #f08216;
+        }
+</style>
+
+<script>
+    $(document).ready(function () {
+        // Geçerli URL'yi al
+        var currentUrl = window.location.pathname;
+
+        // Menüdeki tüm linkleri kontrol et
+        $('.navbar .nav-item a').each(function () {
+            var link = $(this).attr('href');
+
+            // Eğer linkin başı geçerli URL'yi içeriyorsa 'active' sınıfı ekle
+            if (currentUrl === link || currentUrl.indexOf(link) !== -1) {
+                $(this).closest('.nav-item').addClass('active');
+            }
+        });
+    });
+</script>
