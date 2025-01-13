@@ -1,8 +1,10 @@
-﻿@model List<ResultProductDto>
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<ResultProductDto>
 @{
 	ViewData["Title"] = "Index";
 	Layout = "~/Views/AdminLayout/Index.cshtml";
-	int count = 0;
+	int count = (Model.PageNumber - 1) * Model.PageSize;
 }
 
 <div class="content">
@@ -48,7 +50,19 @@
 						</table>
 						<a href="/Product/CreateProduct" class="btn btn-primary">Yeni Ürün</a>
 					</div>
+					<div class="pagination-wrapper">
+						@Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+															new PagedListRenderOptions
+						{
+							DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+							DisplayLinkToLastPage = PagedListDisplayMode.Always,
+							DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+							DisplayLinkToNextPage = PagedListDisplayMode.Always,
+							MaximumPageNumbersToDisplay = 5
+						})
+					</div>
 				</div>
+				
 			</div>
 
 		</div>
@@ -56,4 +70,28 @@
 </div>
 
 
+<style>
+	.pagination-wrapper ul {
+		display: flex;
+		justify-content: center;
+		list-style: none;
+		padding: 0;
+	}
 
+		.pagination-wrapper ul li {
+			margin: 0 5px;
+		}
+
+			.pagination-wrapper ul li a {
+				padding: 5px 10px;
+				border: 1px solid #ccc;
+				border-radius: 5px;
+				text-decoration: none;
+				color: #333;
+			}
+
+				.pagination-wrapper ul li a:hover {
+					background-color: cornflowerblue;
+					color: #fff;
+				}
+</style>

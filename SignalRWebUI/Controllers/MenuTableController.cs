@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using SignalRWebUI.Dtos.MenuTableDtos;
 using System.Text;
+using X.PagedList.Extensions;
 
 namespace SignalRWebUI.Controllers
 {
@@ -14,7 +15,7 @@ namespace SignalRWebUI.Controllers
 			_httpClientFactory = httpClientFactory;
 		}
 
-		public async Task<IActionResult> Index()
+		public async Task<IActionResult> Index(int page = 1, int pageSize = 5)
 		{
 			var client = _httpClientFactory.CreateClient();
 			var responseMessage = await client.GetAsync("https://localhost:7191/api/MenuTables");
@@ -23,7 +24,8 @@ namespace SignalRWebUI.Controllers
 			{
 				var jsonData = await responseMessage.Content.ReadAsStringAsync();
 				var values = JsonConvert.DeserializeObject<List<ResultMenuTableDto>>(jsonData);
-				return View(values);
+				var items = values.ToPagedList(page, pageSize);
+				return View(items);
 			}
 			return View();
 		}

@@ -38,7 +38,7 @@ namespace SignalRWebUI.Controllers
 		{
 			if (menuTableId == 0)
 			{
-				return Json(new { success = false, message = "MenuTableId geçersiz." });
+				return Json(new { success = false, message = "Lütfen önce masa seçiniz." });
 			}
 			CreateBasketDto createBasketDto = new CreateBasketDto()
 			{
